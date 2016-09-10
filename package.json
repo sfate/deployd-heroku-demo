@@ -1,6 +1,6 @@
 {
   "name": "deployd-heroku-demo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Demo of Deployd running on Heroku",
   "main": "server.js",
   "scripts": {
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/NicolasRitouet/deployd-heroku-demo",
   "dependencies": {
-    "deployd": "git://github.com/deployd/deployd.git#v0.8.0-rc.3",
+    "deployd": "git://github.com/deployd/deployd.git#v0.8.9",
     "express": "^4.11.1"
   }
 }
