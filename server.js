@@ -1,35 +1,30 @@
-"use strict";
+var PORT = process.env.PORT || 2403;
+var ENV = process.env.NODE_ENV || 'development';
 
-var express = require('express');
-var http = require('http');
+var deployd = require('deployd');
 
-var serverPort = process.env.PORT || 3000;
-var nodeEnv = process.env.NODE_ENV || 'development';
-
-// setup express
-var app = exports.app = express();
-var server = http.createServer(app);
-
-// Define a new route
-app.get('/hello-express', function (req, res) {
-  res.send('Hello Deployd!');
+// deployd
+var server = deployd({
+  socketIo: io,
+  env: ENV,
+  db: {host:'localhost', port:27017, name:'test-app'}
 });
 
-// setup deployd
-require('deployd').attach(server, {
-  env: nodeEnv,
-  db: {
-    connectionString: process.env.MONGOHQ_URL
-                        || process.env.MONGOLAB_URI
-                        || 'mongodb://localhost:27017/deployd'
-  }
+// heroku requires these settings for sockets to work
+server.sockets.manager.settings.transports = ["xhr-polling"];
+
+// start the server
+server.listen();
+
+// debug
+server.on('listening', function() {
+  console.log("Server is listening on port: " + process.env.PORT);
 });
 
-// After attach, express can use server.handleRequest as middleware
-app.use(server.handleRequest);
-
-// start server
-server.listen(serverPort, function() {
-  var serverAddr = server.address().address == '0.0.0.0' ? 'localhost' : server.address().address;
-  console.log('Express & Deployd started.\n\nPlease visit http://%s:%s', serverAddr, server.address().port);
+// Deployd requires this
+server.on('error', function(err) {
+  console.error(err);
+  process.nextTick(function() { // Give the server a chance to return an error
+    process.exit();
+  });
 });
