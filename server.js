@@ -9,9 +9,6 @@ var server = deployd({
   db: {host:'localhost', port:27017, name:'test-app'}
 });
 
-// heroku requires these settings for sockets to work
-server.sockets.manager.settings.transports = ["xhr-polling"];
-
 // start the server
 server.listen();
 
