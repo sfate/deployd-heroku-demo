@@ -5,7 +5,6 @@ var deployd = require('deployd');
 
 // deployd
 var server = deployd({
-  socketIo: io,
   env: ENV,
   db: {host:'localhost', port:27017, name:'test-app'}
 });
