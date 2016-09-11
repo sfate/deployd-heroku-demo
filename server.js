@@ -1,7 +1,6 @@
 var config = {
   port: process.env.PORT || 2403,
-  env: process.env.NODE_ENV || 'development',
-  db_port: process.env.DB_PORT || 27017
+  env: process.env.NODE_ENV || 'development'
 };
 
 var deployd = require('deployd'),
@@ -11,7 +10,7 @@ var deployd = require('deployd'),
 var server = deployd({
   port: config.port,
   env: config.env,
-  db: {host:'localhost', port:config.db_port, name:'test-app'}
+  db: { connectionString: process.env.MONGODB_URI || '' }
 });
 
 // start the server
