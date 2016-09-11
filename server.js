@@ -1,8 +1,8 @@
 var config = {
-  port: process.env.PORT || 2403;
-  env: process.env.NODE_ENV || 'development';
-  db_port: process.env.DB_PORT || 27017; //19996
-}
+  port: process.env.PORT || 2403,
+  env: process.env.NODE_ENV || 'development',
+  db_port: process.env.DB_PORT || 27017
+};
 
 var deployd = require('deployd'),
     url = require('url');
